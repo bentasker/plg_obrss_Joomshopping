@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<install version="1.5" type="addons" method="upgrade">
+<extension version="3.0" type="plugin" method="upgrade" group="obrss">
 	<name>JoomShopping</name>
 	<author>Ben Tasker</author>
 	<creationDate>Jul 2013</creationDate>
 	<copyright>B Tasker</copyright>
 	<authorEmail>obrssJShopping@bentasker.co.uk</authorEmail>
 	<authorUrl>http://www.bentasker.co.uk</authorUrl>
+	<license>GNU/GPL V2, see LICENSE</license>
 	<version>2.5</version>
-	<description>JoomShopping support plugin for Foobla's ObRSS Component</description>
+	<description>JoomShopping support plugin for Fooblas ObRSS Component</description>
 	<files>
-		<filename>joomshopping.php</filename>
-		<filename>joomshopping.xml</filename>
+		<filename plugin="joomshopping">joomshopping.php</filename>
+		<filename plugin="joomshopping">joomshopping.xml</filename>
 		<folder>elements</folder>
 		<folder>language</folder>
 	</files>
-	<params addpath="/plugins/obrss/joomshopping/elements">
-		<param name="categories" type="JShopCategory" default="" label="Categories" description="Select categories" multiple="multiple"/>
+	<config>
+	    <fields name="default">
+	      <fieldset name="basic">
+		<field name="categories" type="JShopCategory" default="" label="Categories" description="Select categories" multiple="true"/>
 		<!-- <param name="clients" type="clients" label="Clients" description="Select clients, press and hold Ctrl for multiple select." /> -->
-	</params>
-</install>
+		</fieldset>
+	    </fields>
+	</config>
+</extension>
