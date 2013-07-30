@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<install version="1.5" type="addons" method="upgrade">
+	<name>JoomShopping</name>
+	<author>Ben Tasker</author>
+	<creationDate>Jul 2013</creationDate>
+	<copyright>B Tasker</copyright>
+	<authorEmail>obrssJShopping@bentasker.co.uk</authorEmail>
+	<authorUrl>http://www.bentasker.co.uk</authorUrl>
+	<version>2.5</version>
+	<description>JoomShopping support plugin for Foobla's ObRSS Component</description>
+	<files>
+		<filename>joomshopping.php</filename>
+		<filename>joomshopping.xml</filename>
+		<folder>elements</folder>
+		<folder>language</folder>
+	</files>
+	<params addpath="/plugins/obrss/joomshopping/elements">
+		<param name="categories" type="JShopCategory" default="" label="Categories" description="Select categories" multiple="multiple"/>
+		<!-- <param name="clients" type="clients" label="Clients" description="Select clients, press and hold Ctrl for multiple select." /> -->
+	</params>
+</install>
