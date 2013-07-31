@@ -78,7 +78,8 @@ class addonRss_joomshopping
 		}
 
 
-		$sql = "SELECT a.product_id as id, a.`name_en-GB` as title, a.`product_price` AS price, a.`$descfield` as `desc`, i.`image_name` as `image`,".
+		$sql = "SELECT a.product_id as id, a.`name_en-GB` as title, a.`product_price` AS price, a.`$descfield` as `desc`, a.product_ean as product_ean,".
+			" i.`image_name` as `image`,".
 			" c.category_id as catid, m.`name_en-GB` AS manufacturer ".
 			" FROM #__jshopping_products AS a ".
 			"LEFT JOIN #__jshopping_products_to_categories AS c ".
@@ -101,24 +102,30 @@ class addonRss_joomshopping
 	
 	function getLink($row)
 	{
-		return JRoute::_('index.php?option=com_jshopping&controller=product&task=view&category_id='. $row->catid."&product_id=".$row->id);
+		return JUri::base() . ltrim(JRoute::_('index.php?option=com_jshopping&controller=product&task=view&category_id='. $row->catid."&product_id=".$row->id),"/");
 	}
 	
 	function getDesc($row,$itemCf)
 	{
-		$desc = '';
-		$desc .= '<a href="'.$this->getLink($row).'">';
+		$desc = '<div itemscope itemtype="http://schema.org/Offer" style="display: inline;">'.
+		  '<a itemprop="name" href="'.$this->getLink($row).'">'.$row->title."</a><br />" .
+		  '<meta itemprop="url" content="'.$this->getLink($row).'" />';
+	
+		
+	
+		
 
 		if (!empty($row->image)){
 		  $desc .= '<img src="'.rtrim(JUri::base(false),"/").'/components/com_jshopping/files/img_products/'.$row->image.'" />';
-		}else{
-		  $desc .= $row->title;
 		}
 
-		$desc .='</a><br />';
+		if ($itemCf->SKU && !empty($row->product_ean)){
+		  $desc .= "<b>SKU:</b> <span itemprop='sku'>{$row->product_ean}</span><br />";
+		}
+	
 
 		if ($itemCf->ShowPrice && !empty($row->price)){
-		  $desc .= "<b>Price:</b> ".money_format('%.2n',$row->price)."<br />";
+		  $desc .= "<b>Price:</b> <span itemprop='Price'>".money_format('%.2n',$row->price)."</span><br />";
 		}
 
 		if ($itemCf->ShowManu && !empty($row->manufacturer)){
@@ -135,6 +142,7 @@ class addonRss_joomshopping
 		  $desc .= "<br /><a href='".JUri::base(false).ltrim(JRoute::_("index.php?option=com_jshopping&controller=cart&task=add&category_id={$row->catid}&product_id={$row->id}"),"/") . "'><button>Buy Now</button></a>";
 		}
 
+		$desc .= "</div>";
 		return $desc;
 	}
 	
