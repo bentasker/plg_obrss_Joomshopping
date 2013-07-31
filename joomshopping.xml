@@ -26,7 +26,10 @@
 		<field name="label" type="sql" default="" label="Labels" description="Select Labels to filter by" multiple="multiple"
 		query="SELECT `id`,`name` FROM #__jshopping_product_labels" key_field="id" value_field="name" />
 		
-		
+		<field name="Description" type="list" default="1" label="Description" description="Which description field should be used?">
+		  <option value="1">Short Description</option>
+		  <option value="0">Full Description</option>
+		</field>
 		
 		</fieldset>
 	    </fields>
