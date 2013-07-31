@@ -31,6 +31,26 @@
 		  <option value="0">Full Description</option>
 		</field>
 		
+		<field name="ShowPrice" type="list" default="1" label="Price">
+		  <option value="1">Show</option>
+		  <option value="0">Hide</option>
+		</field>
+		
+		<field name="ShowManu" type="list" default="1" label="Manufacturer">
+		  <option value="1">Show</option>
+		  <option value="0">Hide</option>
+		</field>
+		
+		<field name="ViewButton" type="list" default="1" label="View">
+		  <option value="1">Show</option>
+		  <option value="0">Hide</option>
+		</field>
+		
+		<field name="BuyNow" type="list" default="1" label="Buy Now">
+		  <option value="1">Show</option>
+		  <option value="0">Hide</option>
+		</field>
+		
 		</fieldset>
 	    </fields>
 	</config>
