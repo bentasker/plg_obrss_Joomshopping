@@ -36,17 +36,22 @@
 		  <option value="0">Hide</option>
 		</field>
 		
+		<field name="SKU" type="list" default="1" label="SKU">
+		  <option value="1">Show</option>
+		  <option value="0">Hide</option>
+		</field>
+		
 		<field name="ShowManu" type="list" default="1" label="Manufacturer">
 		  <option value="1">Show</option>
 		  <option value="0">Hide</option>
 		</field>
 		
-		<field name="ViewButton" type="list" default="1" label="View">
+		<field name="ViewButton" type="list" default="1" label="View Button">
 		  <option value="1">Show</option>
 		  <option value="0">Hide</option>
 		</field>
 		
-		<field name="BuyNow" type="list" default="1" label="Buy Now">
+		<field name="BuyNow" type="list" default="1" label="Buy Now Button">
 		  <option value="1">Show</option>
 		  <option value="0">Hide</option>
 		</field>
