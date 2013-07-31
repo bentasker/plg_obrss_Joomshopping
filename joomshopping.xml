@@ -12,14 +12,22 @@
 	<files>
 		<filename plugin="joomshopping">joomshopping.php</filename>
 		<filename plugin="joomshopping">joomshopping.xml</filename>
-		<folder>elements</folder>
 		<folder>language</folder>
 	</files>
 	<config>
 	    <fields name="default">
 	      <fieldset name="basic">
-		<field name="categories" type="JShopCategory" default="" label="Categories" description="Select categories" multiple="true"/>
-		<!-- <param name="clients" type="clients" label="Clients" description="Select clients, press and hold Ctrl for multiple select." /> -->
+		<field name="categories" type="sql" default="" label="Categories" description="Select categories" multiple="multiple"
+		query="SELECT `category_id`, `name_en-GB` FROM #__jshopping_categories ORDER BY `ordering`" key_field="category_id" value_field="name_en-GB" />
+		
+		<field name="manufacturer" type="sql" default="" label="Manufacturers" description="Select Manufacturers to filter by" multiple="multiple"
+		query="SELECT manufacturer_id, `name_en-GB` FROM #__jshopping_manufacturers ORDER BY `ordering`" key_field="manufacturer_id" value_field="name_en-GB" />
+		
+		<field name="label" type="sql" default="" label="Labels" description="Select Labels to filter by" multiple="multiple"
+		query="SELECT `id`,`name` FROM #__jshopping_product_labels" key_field="id" value_field="name" />
+		
+		
+		
 		</fieldset>
 	    </fields>
 	</config>
