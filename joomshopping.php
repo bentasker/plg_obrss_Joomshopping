@@ -56,7 +56,7 @@ class addonRss_joomshopping
 #__jshopping_products_to_categories AS c
 
 */
-		$sql = "SELECT a.product_id as id, a.`name_en-GB` as title, a.`$descfield` as `desc`,".
+		$sql = "SELECT a.product_id as id, a.`name_en-GB` as title, a.`$descfield` as `desc`, a.`image` as `image`,".
 			" c.category_id as catid FROM #__jshopping_products AS a ".
 			"LEFT JOIN #__jshopping_products_to_categories AS c ".
 			"ON a.product_id = c.product_id ".
@@ -80,17 +80,18 @@ class addonRss_joomshopping
 	function getDesc($row,$itemCf)
 	{
 		$desc = '';
-		$desc .= '<a href="'.$this->getLink($row).'"><img src="'.$this->getImage($row,$itemCf).'" /></a><br />';
+		$desc .= '<a href="'.$this->getLink($row).'">';
+
+		if (!empty($row->image)){
+		  $desc .= '<img src="'.rtrim(JUri::base(false),"/").'/components/com_jshopping/files/img_products/'.$row->image.'" />';
+		}else{
+		  $desc .= $row->title;
+		}
+
+		$desc .='</a><br />';
 		$desc .= $row->desc;
 		return $desc;
 	}
 	
-	function getImage($row,$itemCf) {
-		$params = json_decode($row->params);
-		#var_dump($row->params);
-		#echo 'Kha ko dep trai:';
-		#var_dump($params);
-		#exit();
-		return $params->imageurl;#exit();
-	}
+
 }
