@@ -134,13 +134,17 @@ class addonRss_joomshopping
 
 		$desc .= $row->desc;
 
+		$desc .= "<br /><table style='border: 0px; margin: auto;'><tr><td>";
 		if ($itemCf->ViewButton){
-		  $desc .= "<br /><a href='".$this->getLink($row) . "'><button>View Product</button></a>";
+		  $desc .= "<a href='".$this->getLink($row) . "'><button>View Product</button></a>";
 		}
+		$desc .= "</td><td>&nbsp;</td><td>";
 
 		if ($itemCf->BuyNow){
-		  $desc .= "<br /><a href='".JUri::base(false).ltrim(JRoute::_("index.php?option=com_jshopping&controller=cart&task=add&category_id={$row->catid}&product_id={$row->id}"),"/") . "'><button>Buy Now</button></a>";
+		  $desc .= "<a href='".JUri::base(false).ltrim(JRoute::_("index.php?option=com_jshopping&controller=cart&task=add&category_id={$row->catid}&product_id={$row->id}"),"/") . "'><button>Buy Now</button></a>";
 		}
+
+		$desc .= "</tr></table>";
 
 		$desc .= "</div>";
 		return $desc;
