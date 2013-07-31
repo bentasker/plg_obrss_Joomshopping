@@ -108,7 +108,7 @@ class addonRss_joomshopping
 	function getDesc($row,$itemCf)
 	{
 		$desc = '<div itemscope itemtype="http://schema.org/Offer" style="display: inline;">'.
-		  '<a itemprop="name" href="'.$this->getLink($row).'">'.$row->title."</a><br />" .
+		  '<h3><a itemprop="name" href="'.$this->getLink($row).'">'.$row->title."</a></h3><br />" .
 		  '<meta itemprop="url" content="'.$this->getLink($row).'" />';
 	
 		
@@ -119,20 +119,23 @@ class addonRss_joomshopping
 		  $desc .= '<img src="'.rtrim(JUri::base(false),"/").'/components/com_jshopping/files/img_products/'.$row->image.'" />';
 		}
 
+
+		$desc .= "<br /><table style='border: 0px'>";
+		
 		if ($itemCf->SKU && !empty($row->product_ean)){
-		  $desc .= "<b>SKU:</b> <span itemprop='sku'>{$row->product_ean}</span><br />";
+		  $desc .= "<tr><td><b>SKU:</b></td><td><span itemprop='sku'>{$row->product_ean}</span></td></tr>";
 		}
 	
 
 		if ($itemCf->ShowPrice && !empty($row->price)){
-		  $desc .= "<b>Price:</b> <span itemprop='Price'>".money_format('%.2n',$row->price)."</span><br />";
+		  $desc .= "<tr><td><b>Price:</b></td><td><span itemprop='Price'>".money_format('%.2n',$row->price)."</span></td></tr>";
 		}
 
 		if ($itemCf->ShowManu && !empty($row->manufacturer)){
-		  $desc .= "<b>Manufacturer:</b> {$row->manufacturer}<br />";
+		  $desc .= "<tr><td><b>Manufacturer:</b></td><td>{$row->manufacturer}</td></tr>";
 		}
 
-		$desc .= $row->desc;
+		$desc .= "</table>" . $row->desc;
 
 		$desc .= "<br /><table style='border: 0px; margin: auto;'><tr><td>";
 		if ($itemCf->ViewButton){
