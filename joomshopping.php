@@ -13,7 +13,11 @@ class addonRss_joomshopping
 	{
 		$db = &JFactory::getDBO();
 		$categories = array();
+		$manufacturers = array();
+		$labels = array();
 		$cats_query = '';
+		$manu_query = '';
+		$label_query = '';
 		$descfield = 'short_description_en-GB';
 
 		if (isset($_REQUEST['x'])) {
@@ -21,7 +25,7 @@ class addonRss_joomshopping
 			die;
 		}
 
-		# categories
+		// Categories
 		$categs = $itemCf->categories;
 		if (!is_array($categs) && !empty($categs)) {
 			$categories[] = $categs;
@@ -35,33 +39,54 @@ class addonRss_joomshopping
 		  $cats_query = " AND c.category_id IN (" . implode(",",$categories) .")"; 
 		}
 
+		// Manufacturers
+		$manus = $itemCf->manufacturers;
 
+		if (!is_array($manus) && !empty($manus)) {
+			$manufacturers[] = $categs;
+		}elseif(count($manus) > 0){
+			foreach ($manus as $c){
+			  $manufacturers[] = $c;
+			}
+		}
+
+		if (count($manufacturers) > 0){
+		  $manu_query = " AND a.product_manufacturer_id IN (" . implode(",",$manufacturers) .")"; 
+		}
+
+
+		// Labels
+		$label = $itemCf->label;
+
+		if (!is_array($label) && !empty($label)) {
+			$labels[] = $label;
+		}elseif(count($label) > 0){
+			foreach ($label as $c){
+			  $labels[] = $c;
+			}
+		}
+
+		if (count($labels) > 0){
+		  $label_query = " AND a.label_id IN (" . implode(",",$labels) .")"; 
+		}
+
+
+
+		// Which description are we showing?
 		if (!$itemCf->Description){
 		  $descfield = 'description_en-GB';
 		}
-	/*	
-		# categories
-		$cats 	= $itemCf->categories;
-		if (!is_array($cats)) {
-			$cats = array($cats);
-		}
-		if (!in_array('',$cats)) {
-			$cats = implode(',',$cats);
-			$qryCats	= " AND b.catid IN ($cats)";
-		} else {
-			$qryCats	= '';
-		}
-		
 
-#__jshopping_products_to_categories AS c
 
-*/
 		$sql = "SELECT a.product_id as id, a.`name_en-GB` as title, a.`$descfield` as `desc`, a.`image` as `image`,".
-			" c.category_id as catid FROM #__jshopping_products AS a ".
+			" c.category_id as catid, m.`name_en-GB` AS manufacturer ".
+			" FROM #__jshopping_products AS a ".
 			"LEFT JOIN #__jshopping_products_to_categories AS c ".
 			"ON a.product_id = c.product_id ".
+			"LEFT JOIN #__jshopping_manufacturers AS m ".
+			"ON a.product_manufacturer_id = m.manufacturer_id ".
 			"WHERE a.product_publish='1' ".
-			$cats_query .
+			$cats_query . $manu_query . $label_query .
 			" LIMIT {$itemCf->limit}";
     
 		$db->setQuery($sql);
@@ -89,6 +114,11 @@ class addonRss_joomshopping
 		}
 
 		$desc .='</a><br />';
+
+		if (!empty($row->manufacturer)){
+		  $desc .= "<b>Manufacturer:</b>{$row->manufacturer}<br />";
+		}
+
 		$desc .= $row->desc;
 		return $desc;
 	}
