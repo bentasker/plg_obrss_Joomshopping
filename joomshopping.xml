@@ -56,6 +56,18 @@
 		  <option value="0">Hide</option>
 		</field>
 		
+		<field name="ordering" type="list" default="product_date_added" label="Order By">
+		  <option value="product_date_added">Date Added</option>
+		  <option value="price">Price</option>
+		  <option value="name_en-GB">Name</option>
+		  <option value="hits">Hits</option>
+		</field>
+		
+		<field name="orderdir" type="list" default="ASC" label="Sort Direction" >
+		  <option value="ASC">Ascending</option>
+		  <option value="DESC">Descending</option>
+		</field>
+		
 		</fieldset>
 	    </fields>
 	</config>

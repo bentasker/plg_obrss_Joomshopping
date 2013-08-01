@@ -90,6 +90,8 @@ class addonRss_joomshopping
 			"ON a.product_id = i.product_id " .
 			"WHERE a.product_publish='1' AND ( i.ordering=1 OR i.ordering IS NULL ) ".
 			$cats_query . $manu_query . $label_query .
+			" ORDER BY a.`{$itemCf->ordering}` {$itemCf->orderdir}".
+			" GROUP BY a.`product_id`".
 			" LIMIT {$itemCf->limit}";
     
 		$db->setQuery($sql);
