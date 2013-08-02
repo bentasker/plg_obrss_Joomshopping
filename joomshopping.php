@@ -90,8 +90,8 @@ class addonRss_joomshopping
 			"ON a.product_id = i.product_id " .
 			"WHERE a.product_publish='1' AND ( i.ordering=1 OR i.ordering IS NULL ) ".
 			$cats_query . $manu_query . $label_query .
-			" ORDER BY a.`{$itemCf->ordering}` {$itemCf->orderdir}".
 			" GROUP BY a.`product_id`".
+			" ORDER BY a.`{$itemCf->ordering}` {$itemCf->orderdir}".
 			" LIMIT {$itemCf->limit}";
     
 		$db->setQuery($sql);
@@ -125,28 +125,28 @@ class addonRss_joomshopping
 		$desc .= "<br /><table style='border: 0px'>";
 		
 		if ($itemCf->SKU && !empty($row->product_ean)){
-		  $desc .= "<tr><td><b>SKU:</b></td><td><span itemprop='sku'>{$row->product_ean}</span></td></tr>";
+		  $desc .= "<tr><td><b>SKU:</b></td><td>&nbsp;</td><td><span itemprop='sku'>{$row->product_ean}</span></td></tr>";
 		}
 	
 
 		if ($itemCf->ShowPrice && !empty($row->price)){
-		  $desc .= "<tr><td><b>Price:</b></td><td><span itemprop='Price'>".money_format('%.2n',$row->price)."</span></td></tr>";
+		  $desc .= "<tr><td><b>Price:</b></td><td>&nbsp;</td><td><span itemprop='Price'>".money_format('%.2n',$row->price)."</span></td></tr>";
 		}
 
 		if ($itemCf->ShowManu && !empty($row->manufacturer)){
-		  $desc .= "<tr><td><b>Manufacturer:</b></td><td>{$row->manufacturer}</td></tr>";
+		  $desc .= "<tr><td><b>Manufacturer:</b></td><td>&nbsp;</td><td>{$row->manufacturer}</td></tr>";
 		}
 
 		$desc .= "</table>" . $row->desc;
 
-		$desc .= "<br /><table style='border: 0px; margin: auto;'><tr><td>";
+		$desc .= "<br /><br />\n<table style='border: 0px; margin: auto;'><tr><td>";
 		if ($itemCf->ViewButton){
-		  $desc .= "<a href='".$this->getLink($row) . "'><button>View Product</button></a>";
+		  $desc .= "<a href='".$this->getLink($row) . "'><button>View Item</button></a>";
 		}
 		$desc .= "</td><td>&nbsp;</td><td>";
 
 		if ($itemCf->BuyNow){
-		  $desc .= "<a href='".JUri::base(false).ltrim(JRoute::_("index.php?option=com_jshopping&controller=cart&task=add&category_id={$row->catid}&product_id={$row->id}"),"/") . "'><button>Buy Now</button></a>";
+		  $desc .= "<a href='".JUri::base(false).ltrim(JRoute::_("index.php?option=com_jshopping&controller=cart&task=add&category_id={$row->catid}&product_id={$row->id}"),"/") . "'><button class='btn btn-primary'>Add to Cart</button></a>";
 		}
 
 		$desc .= "</tr></table>";

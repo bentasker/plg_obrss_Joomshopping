@@ -7,13 +7,15 @@
 	<authorEmail>obrssJShopping@bentasker.co.uk</authorEmail>
 	<authorUrl>http://www.bentasker.co.uk</authorUrl>
 	<license>GNU/GPL V2, see LICENSE</license>
-	<version>2.5</version>
+	<version>1.1</version>
 	<description>JoomShopping support plugin for Fooblas ObRSS Component</description>
 	<files>
 		<filename plugin="joomshopping">joomshopping.php</filename>
 		<filename plugin="joomshopping">joomshopping.xml</filename>
-		<folder>language</folder>
 	</files>
+	
+
+	
 	<config>
 	    <fields name="default">
 	      <fieldset name="basic">
